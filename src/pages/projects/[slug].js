@@ -1,7 +1,7 @@
 import { getAllProjects } from "@/lib/fetchProjects";
 import { getSingleProject } from "@/lib/fetchSingleProject";
 import Image from "next/image";
-import styles from "@/styles/singleProject.module.css";
+import styles from "@/styles/SingleProject.module.css";
 import PageContent from "@/components/shared/PageContent";
 import { useState } from "react";
 
