@@ -36,10 +36,6 @@ export default function Projects({ categories }) {
   const ref = useRef(null);
   const isInView = useInView(ref);
 
-  useEffect(() => {
-    console.log(isInView);
-  }, [isInView]);
-
   return (
     <>
       <PageContent>

@@ -17,39 +17,47 @@ export default function Project({ project }) {
   return (
     <>
       <PageContent>
-        <div className={`${styles.projectContainer} px-4 md:px-16 max-w-5xl`}>
-          <div className="relative md:sticky top-16 h-screen items-start justify-center flex flex-col gap-8 md:mt-16 mb-8 ">
+        <div className={`${styles.projectContainer} px-4 md:px-16`}>
+          <div className="relative md:sticky top-16 md:h-screen items-start justify-center flex flex-col gap-8 md:mt-16 mb-8 ">
             <div className="flex flex-col gap-4 max-w-3xl ">
-              <div className="w-full max-w-[100px] bg-white rounded-full">
-                <Image
-                  src={image.url}
-                  height={image.height}
-                  width={image.width}
-                  alt={title + "icono"}
-                  className="h-full w-full object-cover"
-                />
-              </div>
+              {image ? (
+                <div className="w-full max-w-[100px] bg-white rounded-full">
+                  <Image
+                    src={image.url}
+                    height={image.height}
+                    width={image.width}
+                    alt={title + "icono"}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : null}
+
               <h1 className={styles.project_title}>{title}</h1>
               <div className={styles.data}>
-                {area ? <p className="text-black text-lg">{area}</p> : null}
-                {category ? (
-                  <p className="text-black text-lg">{category}</p>
-                ) : null}
-                {year ? <p className="text-black text-lg">{year}</p> : null}
+                {area ? <p className="text-lg">{area}</p> : null}
+                {category ? <p className="text-lg">{category}</p> : null}
+                {year ? <p className="text-lg">{year}</p> : null}
               </div>
-              {body ? <p className="text-black text-md">{body}</p> : null}
+              {body ? <p className="text-md">{body}</p> : null}
             </div>
-            {concept ? (
+          </div>
+          <div className="w-full flex flex-col mt-16 gap-4">
+            <div className="flex w-full gap-4">
               <button
                 type="button"
                 className={styles.button}
-                onClick={handleConcept}
+                onClick={() => setIsConcept(false)}
               >
-                {isConcept ? "Galería" : "Concepto"}
+                Galería
               </button>
-            ) : null}
-          </div>
-          <div className="w-full flex flex-col mt-16 gap-4">
+              <button
+                type="button"
+                className={styles.button}
+                onClick={() => setIsConcept(true)}
+              >
+                Concepto
+              </button>
+            </div>
             {isConcept ? (
               <>
                 {concept?.map((image, i) => (

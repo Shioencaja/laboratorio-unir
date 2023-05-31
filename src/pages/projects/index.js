@@ -121,33 +121,6 @@ export default function Projects({ projects }) {
             ))}
           </motion.div>
         </AnimatePresence>
-        {/*
-      {isOpen && (
-        <div className="filters bg-white">
-          <div className="categories flex flex-col ">
-            <button onClick={toogle}>Cerrar</button>
-            <button onClick={() => handleAllButtonClick("")}>All</button>
-            {categories.map((category, i) => (
-              <button
-                key={category.title}
-                onClick={() => handleAllButtonClick(category.title)}
-              >
-                {category.title}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-      {!isOpen && (
-        <button
-          className="fixed bottom-20 right-5 z-10 bg-white p-8"
-          type="button"
-          onClick={toogle}
-        >
-          Filtro
-        </button>
-      )}
-      */}
         <section className={styles.projects_container}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -167,9 +140,20 @@ export default function Projects({ projects }) {
                     className={styles.project}
                   >
                     <motion.div
-                      className={styles.project_main_image}
+                      className={`${styles.project_main_image} relative`}
                       whileOnHover={{ scale: 1.05 }}
                     >
+                      {project.image ? (
+                        <div className={styles.project_icon}>
+                          <Image
+                            src={project.image.url}
+                            height={project.image.height}
+                            width={project.image.width}
+                            className="h-full w-full object-cover"
+                            alt={project.title}
+                          />
+                        </div>
+                      ) : null}
                       <Image
                         src={project.gallery.url}
                         width={project.gallery.width}
@@ -179,19 +163,6 @@ export default function Projects({ projects }) {
                       />
                     </motion.div>
                     <div className={styles.project_data_container}>
-                      {/**
-                    {project.image ? (
-                      <div className={styles.project_icon}>
-                        <Image
-                          src={project.image.url}
-                          height={project.image.height}
-                          width={project.image.width}
-                          className="h-full w-full object-cover"
-                          alt={project.title}
-                        />
-                      </div>
-                    ) : null}
-                     */}
                       <p className={styles.project_title}>{project.title}</p>
                     </div>
                   </Link>

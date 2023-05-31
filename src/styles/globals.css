@@ -129,8 +129,9 @@ html {
 body {
   font-family: "Satoshi", sans-serif;
   font-weight: 400;
-  color: #e82c2e;
+  color: #fff;
   font-size: 18px;
+  background-color: #e82c2e;
 }
 
 ::selection {
