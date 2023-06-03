@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { getAllCategories } from "@/lib/fetchCategories";
-import styles from "@/styles/Navbar.module.css";
+import { getCategoriesNavBar } from "@/lib/fetchCategories";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [subMenu, setSubMenu] = useState(false);
   const [categories, setCategories] = useState([]);
   const router = useRouter();
+  const { locale } = router;
   let routerName;
 
   switch (router.pathname) {
@@ -32,27 +31,34 @@ export default function Navbar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const categories = await getAllCategories();
+      const categories = await getCategoriesNavBar(locale);
       setCategories(categories);
     };
     fetchData();
-  }, []);
+  }, [locale]);
 
   return (
     <nav
       key={router.route}
-      className={`fixed top-0 right-0 z-50  ${
+      className={`fixed top-0 w-full flex justify-end z-50  ${
         router.pathname === "/"
           ? `text-red-500`
-          : `${isOpen ? "text-red-500 md:text-white" : "text-white"}`
+          : `${
+              isOpen
+                ? "text-red-500 md:text-white md:bg-rojo-500"
+                : "text-white"
+            }`
       } transition-background-color duration-500 ease-in-out `}
       style={{ transition: "background-color 0.5s ease" }}
     >
       <div className="flex flex-col md:flex-row-reverse items-center">
         <div className="w-full px-4 sm:px-6 lg:px-4 flex items-center justify-between py-4 bg-transparent">
-          <div className={`${styles.logo_wrapper} flex`} onClick={toggleMenu}>
+          <div
+            className="flex relative w-[120px] h-[30px] cursor-pointer z-50"
+            onClick={toggleMenu}
+          >
             <motion.div
-              className={styles.circle}
+              className="h-[30px] w-[30px] flex items-center justify-center absolute right-0 top-0 "
               animate={!isOpen ? { right: "0px" } : { right: "48px" }}
             >
               <svg
@@ -71,7 +77,7 @@ export default function Navbar() {
               </svg>
             </motion.div>
             <motion.div
-              className={styles.circle}
+              className="h-[30px] w-[30px] flex items-center justify-center absolute right-0 top-0 "
               animate={!isOpen ? { right: "0px" } : { right: "82px" }}
             >
               <svg
@@ -89,7 +95,7 @@ export default function Navbar() {
                 />
               </svg>
             </motion.div>
-            <div className={styles.circle}>
+            <div className="h-[30px] w-[30px] flex items-center justify-center absolute right-0 top-0 ">
               <svg
                 width="150"
                 height="150"
@@ -184,7 +190,7 @@ export default function Navbar() {
                                     }}
                                   >
                                     <Link
-                                      href={`/projects?category=${child.title}`}
+                                      href={`/category/${child.slug}`}
                                       onClick={toggleMenu}
                                       className="w-full flex min-w-max cursor-pointer hover:text-gray-400"
                                     >
