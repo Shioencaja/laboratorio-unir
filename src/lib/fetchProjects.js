@@ -47,7 +47,7 @@ export async function getSingleProject(locale, slug) {
       "width": metadata.dimensions.width
     },
     "slug": slug.current,
-    "category": categories->{title, "slug": slug.current},
+    "category": categories->{"title": titulo.${locale}, "slug": slug.current},
     "gallery": gallery[].asset->{
       url,
       "height": metadata.dimensions.height,

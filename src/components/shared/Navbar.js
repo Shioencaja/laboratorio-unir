@@ -9,7 +9,7 @@ export default function Navbar() {
   const [subMenu, setSubMenu] = useState(false);
   const [categories, setCategories] = useState([]);
   const router = useRouter();
-  const { locale } = router;
+  const { locale, locales } = router;
   let routerName;
 
   switch (router.pathname) {
@@ -27,6 +27,12 @@ export default function Navbar() {
 
   const subMenuHandler = () => {
     setSubMenu(!subMenu);
+  };
+
+  const changeLanguage = (locale) => {
+    router.push(router.pathname, router.asPath, { locale });
+    setIsOpen(!isOpen);
+    setSubMenu(false);
   };
 
   useEffect(() => {
@@ -217,6 +223,26 @@ export default function Navbar() {
                   )}
                 </motion.div>
               ))}
+
+              <div className="flex font-black text-2xl gap-4 ">
+                {locale === "es" ? (
+                  <button
+                    type="button"
+                    className="hover:text-marron transition-all duration-300s"
+                    onClick={() => changeLanguage("en")}
+                  >
+                    English
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="hover:text-marron transition-all duration-300s"
+                    onClick={() => changeLanguage("es")}
+                  >
+                    Español
+                  </button>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
